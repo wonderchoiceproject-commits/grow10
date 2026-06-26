@@ -81,13 +81,16 @@ textarea { resize: vertical; min-height: 100px; }
 .metric-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
 .metric-name { font-weight: 700; font-size: 1rem; color: #1e293b; }
 .metric-score-display { font-weight: 700; color: var(--primary-color); font-size: 1.25rem; }
-/* Metric Header & Tooltips */
-.metric-name-wrapper { position: relative; display: inline-flex; align-items: center; gap: 6px; cursor: help; }
-.metric-name-wrapper::after { content: attr(data-tooltip); position: absolute; bottom: 100%; left: -10px; transform: translateY(10px); background-color: #1e293b; color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; white-space: pre-wrap; width: max-content; max-width: 280px; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 50; box-shadow: 0 4px 6px rgba(0,0,0,0.1); pointer-events: none; text-align: left; line-height: 1.4; }
-.metric-name-wrapper:hover::after { opacity: 1; visibility: visible; transform: translateY(-8px); }
-.metric-name-wrapper::before { content: ''; position: absolute; bottom: 100%; left: 14px; transform: translateY(10px); border: 6px solid transparent; border-top-color: #1e293b; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 50; pointer-events: none; }
-.metric-name-wrapper:hover::before { opacity: 1; visibility: visible; transform: translateY(4px); }
-.info-icon { font-size: 0.75rem; color: var(--text-muted); background: #e2e8f0; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; }
+.metric-name-wrapper { position: relative; display: inline-flex; align-items: center; gap: 6px; }
+.info-icon { position: relative; cursor: help; font-size: 0.75rem; color: var(--text-muted); background: #e2e8f0; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; }
+.info-icon::after { content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background-color: #1e293b; color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; white-space: pre-wrap; width: max-content; max-width: 280px; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 50; box-shadow: 0 4px 6px rgba(0,0,0,0.1); pointer-events: none; text-align: left; line-height: 1.4; }
+.info-icon::before { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(10px); border: 6px solid transparent; border-top-color: #1e293b; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 50; pointer-events: none; }
+@media (hover: hover) {
+  .info-icon:hover::after { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(-8px); }
+  .info-icon:hover::before { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(4px); }
+}
+.info-icon.tooltip-active::after { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(-8px); }
+.info-icon.tooltip-active::before { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(4px); }
 
 /* Range Slider */
 .slider-container { width: 100%; padding: 10px 0 0 0; }
@@ -136,5 +139,5 @@ textarea { resize: vertical; min-height: 100px; }
   .slider-marks { font-size: 0.75rem; padding: 0 6px; }
   .header-container { flex-direction: column; gap: 12px; }
   .header h1 { font-size: 1.15rem; }
-  .metric-name-wrapper::after { max-width: 240px; }
+  .info-icon::after { max-width: 240px; }
 }

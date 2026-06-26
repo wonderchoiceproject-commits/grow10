@@ -142,9 +142,9 @@ function generateEvaluationForms() {
 
       metricItem.innerHTML = `
         <div class="metric-header">
-          <div class="metric-name-wrapper" data-tooltip="${desc}">
+          <div class="metric-name-wrapper">
             <span class="metric-name">${metric}</span>
-            <span class="info-icon">?</span>
+            <span class="info-icon" data-tooltip="${desc}" onclick="toggleTooltip(this, event)">?</span>
           </div>
           <span class="metric-score-display untouched-score" id="score_${person.squadNumber}_${metric}">未評価</span>
         </div>
@@ -173,6 +173,28 @@ function generateEvaluationForms() {
     container.appendChild(card);
   });
 }
+
+window.toggleTooltip = function(element, event) {
+  const isActive = element.classList.contains('tooltip-active');
+  
+  // 他の開いているツールチップをすべて閉じる
+  document.querySelectorAll('.info-icon.tooltip-active').forEach(el => {
+    el.classList.remove('tooltip-active');
+  });
+
+  if (!isActive) {
+    element.classList.add('tooltip-active');
+  }
+  
+  event.stopPropagation();
+}
+
+// ツールチップの外側をタップしたら閉じる
+document.addEventListener('click', () => {
+  document.querySelectorAll('.info-icon.tooltip-active').forEach(el => {
+    el.classList.remove('tooltip-active');
+  });
+});
 
 window.toggleCard = function(cardElement) {
   if (cardElement.classList.contains('expanded')) {
